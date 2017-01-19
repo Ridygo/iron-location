@@ -309,10 +309,16 @@ milliseconds.
             origin += ':' + window.location.port;
           }
         }
-
-        if (url.origin !== origin) {
+        /* hack for ios for window push */
+        if (url._scheme === 'file' && origin === 'file://') {
+         ;
+        }
+        else if (url.origin !== origin) {
           return null;
         }
+        // if (url.origin !== origin) {
+        //   return null;
+        // }
         var normalizedHref = url.pathname + url.search + url.hash;
 
         // If we've been configured not to handle this url... don't handle it!
